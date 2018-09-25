@@ -33,6 +33,7 @@ def run_rounds(compiled_players, number_of_rounds):
         print("SIMPLE_BETTERS" + str(simple_bettor_2))
         print("DISTRIBUTION" + str(distribution_bettor))
         print("CONDITIONAL_BETTER" + str(conditional_better))
+
         # the point are scored
         sum_points(all_players, winning_cards)
         # the round is reset to the current round
@@ -61,7 +62,7 @@ def bet_on_distribution(player, round_):
 
 def bet_conditional_logic(player, round_):
     # P(E | F) = P(E∩F)P(F)
-    if round_ > 5:
+    if round_ % 4:
         for card in player['cards']:
             player['bet']['cards_bet'].append(card)
     return player

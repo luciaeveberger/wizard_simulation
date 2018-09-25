@@ -1,13 +1,18 @@
 # WIZARD
 
-## Design
-
-
 ## Strategies:
 
+After assessing the game, I devised the following strategies. The bettors below bet on a combination of:
+1. the strength of the individual card(s): raw card value
+2. the order/size (N) of the round
+3. the distribution of cards for (N)
+4. the patterns of others betting and history
+
+Mentioned also are the potential downside of their strategy. * None of these strategies are optimal!
+
 #### 1. Simple Bettor - Early and Aggressive:
-This bettor bets on the strength of their hand vs. the order of bids.
-At the early stages of the game, they bet aggressively  with a lower threshold  card > [50] at the . As the rounds progress, they up the threshold and bet less aggressively after.
+This bettor bets on the strength of their hand and the order of bids.
+At the early stages of the game, they bet aggressively  with a lower threshold  `card > [50]` . As the rounds progress, they up the threshold and bet less aggressively after.
 This player may consistently overbid.
 
 #### 2. Distribution Bettor - Passive:
@@ -20,4 +25,5 @@ At the beginning, this player will at most gain/lost 1 during the rounds. They w
 
 
 #### 3. Pattern Bettor
-This bettor examines the patterns of the other betters and builds their betting strategy off the others. They will be influenced by the score and build their model on Bayesian probability.
+This bettor examines the patterns of the other betters and builds their betting strategy off the original bets and wins of the other players.
+They will be influenced by the score and build their model on Bayesian probability.
