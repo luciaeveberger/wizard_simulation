@@ -26,4 +26,4 @@ At the beginning, this player will at most gain/lost 1 during the rounds. They w
 
 #### 3. Pattern Bettor
 This bettor examines the patterns of the other betters and builds their betting strategy off the original bets and wins of the other players.
-They will be influenced by the score and build their model on Bayesian probability.
+This bettor takes the highest previous score and the count from the round before. Using that information, they bets on that number (or percentage in the future). After enough rounds, they could build their model on the successful probability estimates of their fellow teammates betting strategies (Bayesian).
