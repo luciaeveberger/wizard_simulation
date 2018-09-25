@@ -13,6 +13,7 @@ def run_rounds(compiled_players, number_of_rounds):
     selected_cards = list()
     for round_ in range(1, number_of_rounds + 1):
         print("** ROUND {0} **".format(round_))
+
         # distributes the cards from 1 - 100 with the size round
         for contestant in compiled_players:
             selected_hand = np.random.random_integers(low=0, high=CARD_MAX, size=round_)
@@ -34,11 +35,14 @@ def run_rounds(compiled_players, number_of_rounds):
         sum_points(all_players, winning_cards)
         # the round is reset to the current round
         for participant in all_players:
-            print(participant)
+            print("___Participant {0}___ Bets: {1} ___ Score: {2}"
+                  .format(participant['name'], participant['bet']['cards_bet'], participant['score']))
+
             participant['cards'] = []
             participant['bet']['cards_bet'] = []
-
         selected_cards = []
+    winner = max(all_players, key=lambda x: x['score'])
+    print("**** WINNER {0} ****".format(winner['name']))
 
 
 def bet_early_aggressive(player, round_):
