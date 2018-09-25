@@ -12,7 +12,7 @@ At the early stages of the game, they bet aggressively  with a lower threshold  
 This player may consistently overbid.
 
 2. Distribution Bettor - Passive:
-This bettor bets more passively than the aggressive better. If their card falls in the highest distribution of 100 with a shifting distribution per size, they will play it. Otherwise, they will not. In effect, they are more concerned with the overall score.
+This bettor bets more passively. If their card falls in the highest distribution of 100 with a shifting distribution per size, they will play it. Otherwise, they will not. In effect, they are more concerned with the overall score.
 For example,
 ` n=3  y = card_max - (card_max/round_*4) `
 `y = 66 `
@@ -21,5 +21,4 @@ This player will at most gain/lost 1 during the rounds.
 
 
 3. Pattern Bettor
-
 This bettor examines the patterns of the other betters and builds their betting strategy off the others. They will be influenced by the score and build their model on Bayesian probability.
