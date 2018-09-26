@@ -89,11 +89,12 @@ def bet_on_distribution(player, round_):
 
 def bet_historical_pattern(player):
     """
-
+    calculates the max_played of the previous round 
+    and then plays that number
     """
     max_played = max(all_players, key=lambda x: x['change_in_score'])
-    betting_top = np.argpartition(player['cards'], -max_played['count_played'])[-max_played['count_played']:]
-    for card in betting_top:
+    top_bet = np.argpartition(player['cards'], -max_played['count_played'])[-max_played['count_played']:]
+    for card in top_bet:
         player['bet']['cards_bet'].append(card)
     player["player_strategy"] = "historical_winners"
     return player
@@ -104,6 +105,7 @@ def sum_points(betting_members, card_winners):
         # keeps a counter of the previous score
         participant['prev_score'] = participant['score']
         bets = participant['bet']['cards_bet']
+        
         participant['count_played'] = len(bets)
         cards = participant['cards']
 
