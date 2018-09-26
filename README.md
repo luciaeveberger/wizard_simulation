@@ -1,5 +1,12 @@
 # WIZARD
 
+## Running the game 
+
+`python wizard.py`
+
+The round number will print along with the winning cards and players bet. 
+At the end of the round, the winning player and strategy will print.
+
 ## Strategies:
 
 After assessing the game, I devised the following strategies. The bettors below bet on a combination of:
