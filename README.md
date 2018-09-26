@@ -26,4 +26,4 @@ At the beginning, this player will at most gain/lost 1 during the rounds. During
 
 #### 3. Pattern Bettor
 This bettor examines the patterns of the other betters and builds their betting strategy off the history of wins of the other players.
-This bettor takes the highest previous score and the count from the round before. Using that information, they bets on that number (or percentage in the future). After enough rounds `[N=very large]`, they could build their model on the successful probability estimates of their fellow teammates betting strategies and perhaps build a Bayesian model.
+This bettor takes the highest previous score and the count from the round before. Using that information, they bets on that number (or percentage in the future). After enough rounds `[N=very large]`, they could build their model on the successful probability estimates of their fellow teammates betting strategies and perhaps build a Bayesian model. (Could potentially develop a model like in the References/CIG2007Poker.pdf)
