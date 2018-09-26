@@ -1,5 +1,11 @@
 import numpy as np
 
+# 'global' variables for game context
+NUMBER_OF_CARDS = 100
+CARD_MAX = 100
+PLAYERS_NAMES = ["Angela", "Theresa", "Emmanuel", "Donald"]
+ROUND_COUNT = 10
+
 
 def set_up_players():
     """
@@ -26,6 +32,37 @@ def deal_cards(round_count, players):
         # compiles all the cards
         selected_cards.extend(selected_hand)
     return selected_cards
+
+
+def sum_points(betting_members, card_winners):
+    for participant in betting_members:
+        # keeps a counter of the previous score
+        participant['prev_score'] = participant['score']
+        bets = participant['bet']['cards_bet']
+
+        participant['count_played'] = len(bets)
+        cards = participant['cards']
+
+        count_actual_winners = len(set(card_winners).intersection(set(cards)))
+        count_predicted_winners = len(bets)
+
+        # if they guess the exact contents
+        if count_predicted_winners == count_actual_winners and bets:
+            participant['score'] = participant['score'] + len(bets) + 2
+
+        if count_predicted_winners > count_actual_winners:
+            participant['score'] = participant['score'] - abs(count_actual_winners - count_predicted_winners)
+
+        if count_predicted_winners < count_actual_winners:
+            participant['score'] = participant['score'] - abs(count_actual_winners - count_predicted_winners)
+
+        # if bet 0 and have 0
+        if count_actual_winners == 0 and not bets:
+            participant['score'] = participant['score'] + 2
+
+        participant['change_in_score'] = participant['score'] - participant['prev_score']
+
+    return betting_members
 
 
 def run_rounds(compiled_players, number_of_rounds):
@@ -59,15 +96,16 @@ def run_rounds(compiled_players, number_of_rounds):
     print("**** WINNER {0} & STRATEGY {1} ****".format(winner['name'], winner['player_strategy']))
 
 
+# BETTING STRATEGY METHODS [100-138]
 def bet_early_aggressive(player, round_):
     """
     player bets aggressively [ any card > 50] half the game
     player reduces midway [ any card <75]
     """
     for card in player['cards']:
-        if card > 50 and round_ <= ROUND_COUNT/2:
+        if card > CARD_MAX/2 and round_ <= ROUND_COUNT/2:
             player['bet']['cards_bet'].append(card)
-        if round_ > ROUND_COUNT/2 and card > 75:
+        if round_ > ROUND_COUNT/2 and card > CARD_MAX - CARD_MAX/4:
             player['bet']['cards_bet'].append(card)
     player["player_strategy"] = "early_aggressive"
     return player
@@ -100,42 +138,11 @@ def bet_historical_pattern(player):
     return player
 
 
-def sum_points(betting_members, card_winners):
-    for participant in betting_members:
-        # keeps a counter of the previous score
-        participant['prev_score'] = participant['score']
-        bets = participant['bet']['cards_bet']
-        
-        participant['count_played'] = len(bets)
-        cards = participant['cards']
-
-        count_actual_winners = len(set(card_winners).intersection(set(cards)))
-        count_predicted_winners = len(bets)
-
-        # if they guess the exact contents
-        if count_predicted_winners == count_actual_winners and bets:
-            participant['score'] = participant['score'] + len(bets) + 2
-
-        if count_predicted_winners > count_actual_winners:
-            participant['score'] = participant['score'] - abs(count_actual_winners - count_predicted_winners)
-
-        if count_predicted_winners < count_actual_winners:
-            participant['score'] = participant['score'] - abs(count_actual_winners - count_predicted_winners)
-
-        # if bet 0 and have 0
-        if count_actual_winners == 0 and not bets:
-            participant['score'] = participant['score'] + 2
-
-        participant['change_in_score'] = participant['score'] - participant['prev_score']
-
-    return betting_members
 
 
-NUMBER_OF_CARDS = 100
-CARD_MAX = 100
-PLAYERS_NAMES = ["Angela", "Theresa", "Emmanuel", "Donald"]
-ROUND_COUNT = 10
-all_players = set_up_players()
-run_rounds(all_players, ROUND_COUNT)
+if __name__ == "__main__":
+    all_players = set_up_players()
+    run_rounds(all_players, ROUND_COUNT)
+
 
 
