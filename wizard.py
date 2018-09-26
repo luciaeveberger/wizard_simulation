@@ -130,14 +130,12 @@ def bet_historical_pattern(player):
     calculates the max_played of the previous round 
     and then plays that number
     """
-    max_played = max(all_players, key=lambda x: x['change_in_score'])
-    top_bet = np.argpartition(player['cards'], -max_played['count_played'])[-max_played['count_played']:]
+    max_change_in_score = max(all_players, key=lambda x: x['change_in_score'])
+    top_bet = np.argpartition(player['cards'], -max_change_in_score['count_played'])[-max_change_in_score['count_played']:]
     for card in top_bet:
         player['bet']['cards_bet'].append(card)
     player["player_strategy"] = "historical_winners"
     return player
-
-
 
 
 if __name__ == "__main__":
