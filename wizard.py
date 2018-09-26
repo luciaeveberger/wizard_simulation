@@ -35,31 +35,28 @@ def deal_cards(round_count, players):
 
 
 def sum_points(betting_members, card_winners):
+    """ sums bets with actual based on game rules"""
     for participant in betting_members:
         # keeps a counter of the previous score
         participant['prev_score'] = participant['score']
         bets = participant['bet']['cards_bet']
-
         participant['count_played'] = len(bets)
         cards = participant['cards']
-
+        # cards that were bet that match winners
         count_actual_winners = len(set(card_winners).intersection(set(cards)))
         count_predicted_winners = len(bets)
 
-        # if they guess the exact contents
+        # based on the game scoring rules
         if count_predicted_winners == count_actual_winners and bets:
             participant['score'] = participant['score'] + len(bets) + 2
-
         if count_predicted_winners > count_actual_winners:
             participant['score'] = participant['score'] - abs(count_actual_winners - count_predicted_winners)
-
         if count_predicted_winners < count_actual_winners:
             participant['score'] = participant['score'] - abs(count_actual_winners - count_predicted_winners)
-
-        # if bet 0 and have 0
         if count_actual_winners == 0 and not bets:
             participant['score'] = participant['score'] + 2
 
+        # change between rounds
         participant['change_in_score'] = participant['score'] - participant['prev_score']
 
     return betting_members
